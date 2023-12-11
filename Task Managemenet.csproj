@@ -132,15 +132,29 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Priority.cs">
+      <DependentUpon>Task.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status.cs">
+      <DependentUpon>Task.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Task.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Task.Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Task.cs">
+      <DependentUpon>Task.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Task.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Task.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Task1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Task.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -167,6 +181,12 @@
     <Content Include="Models\Task.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Task.Context.cs</LastGenOutput>
+      <DependentUpon>Task.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Task.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Task.edmx</DependentUpon>
+      <LastGenOutput>Task1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -178,9 +198,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Task.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\Task.edmx.diagram">
+    <Content Include="Models\Task.edmx.diagram">
       <DependentUpon>Task.edmx</DependentUpon>
-    </None>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
