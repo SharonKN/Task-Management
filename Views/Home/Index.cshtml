@@ -1,4 +1,5 @@
-﻿<table>
+﻿<!-- Display the table with tasks -->
+<table>
     <thead>
         <tr>
             <th>Task</th>
@@ -16,8 +17,8 @@
                 <td>@task.Description</td>
                 <td>@task.StartDate</td>
                 <td>@task.DueDate</td>
-                <td>@task.PriorityID</td>
-                <td>@task.StatusType</td>
+                <td>@task.Priority.PriorityName</td>
+                <td>@task.Status.StatusType</td>
                 <td> <!-- Add your action buttons or links here --> </td>
             </tr>
         }

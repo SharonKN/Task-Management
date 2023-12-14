@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Task_Managemenet.Models;
+using System.Data.Entity;
+
 
 namespace Task_Managemenet.Controllers
 {
@@ -14,24 +16,14 @@ namespace Task_Managemenet.Controllers
 
         public ActionResult Index()
         {
-            // Fetch priorities and status types from the database
-            ViewBag.Priorities = db.Priority.Select(p => new SelectListItem
-            {
-                Value = p.PriorityID.ToString(),
-                Text = p.PriorityName
-            });
-
-            ViewBag.StatusTypes = db.Status.Select(s => new SelectListItem
-            {
-                Value = s.StatusID.ToString(),
-                Text = s.StatusType
-            });
-
-            // Fetch tasks from the database
-            ViewBag.Tasks = db.Task.ToList();
+            ViewBag.Task = db.Task
+                .Include(t => t.Priority)
+                .Include(t => t.Status)
+                .ToList();
 
             return View();
         }
+
 
         public ActionResult About()
         {
