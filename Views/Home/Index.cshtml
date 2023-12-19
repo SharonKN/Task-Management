@@ -1,26 +1,112 @@
-﻿<!-- Display the table with tasks -->
-<table>
-    <thead>
-        <tr>
-            <th>Task</th>
-            <th>Start Date</th>
-            <th>Due Date</th>
-            <th>Prioritization</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var task in ViewBag.Task)
-        {
+﻿
+<button class="btn btn-secondary float-end create-link" data-url="@Url.Action("Create", "Tasks")">Create New</button>
+<br />
+<div class="modal-body" @*id="modal-content"*@>
+
+    <label for="filterText">Filter:</label>
+    <input type="text" id="filterText" class="form-control mb-2">
+    <button id="filterButton" class="btn btn-primary">Filter</button>
+    <br />
+    <!-- Display the table with tasks -->
+    <table id="taskTable" class="table">
+        <thead>
             <tr>
-                <td>@task.Description</td>
-                <td>@task.StartDate</td>
-                <td>@task.DueDate</td>
-                <td>@task.Priority.PriorityName</td>
-                <td>@task.Status.StatusType</td>
-                <td> <!-- Add your action buttons or links here --> </td>
+                <th>Task</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Prioritization</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var task in ViewBag.Task)
+            {
+                <tr>
+                    <td>@task.Description</td>
+                    <td>@task.StartDate</td>
+                    <td>@task.DueDate</td>
+                    <td>@task.Priority.PriorityName</td>
+                    <td>@task.Status.StatusType</td>
+                    <td>
+                        <button class="btn btn-secondary edit-link" data-url="@Url.Action("Edit", "Tasks", new { id = task.TaskID })">Update</button>
+                        <button class="btn btn-secondary delete-link" data-url="@Url.Action("Delete", "Tasks", new { id = task.TaskID })">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="myModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-content">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to handle Edit and Delete link click events
+        $(document).on("click", ".edit-link, .edit-link-in-modal, .delete-link", function (e) {
+            e.preventDefault();
+            var url = $(this).data("url");
+
+            $.get(url, function (data) {
+                $("#modal-content").empty();
+                $("#modal-content").html(data);
+                $("#myModal").modal("show");
+            });
+        });
+
+        // Function to handle form submission within the modal
+        $(document).on("submit", "#modal-content form", function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var url = form.attr("action");
+            var formData = form.serialize();
+
+            $.post(url, formData, function (data) {
+                $("#myModal").modal("hide");
+                // Uncomment the following line to reload the page after update
+                location.reload();
+            });
+        });
+
+        // Function to handle filter button click event
+        $(document).on("click", "#filterButton", function () {
+            var filterText = $("#filterText").val().toLowerCase();
+
+            // Filter table rows based on the input text
+            $("#taskTable tbody tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(filterText) > -1);
+            });
+        });
+
+        // Function to handle "Create New" button click event
+        $(document).on("click", ".create-link, .create-lookup-link", function (e) {
+            e.preventDefault();
+            var url = $(this).data("url");
+
+            $.get(url, function (data) {
+                $("#modal-content").empty();
+                $("#modal-content").html(data);
+                $("#myModal").modal("show");
+            });
+        });
+    });
+
+</script>
+
+
