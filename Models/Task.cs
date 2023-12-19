@@ -11,7 +11,7 @@ namespace Task_Managemenet.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Task
     {
         public int TaskID { get; set; }
@@ -23,5 +23,10 @@ namespace Task_Managemenet.Models
     
         public virtual Priority Priority { get; set; }
         public virtual Status Status { get; set; }
+
+        public static implicit operator System.Threading.Tasks.Task(Task v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

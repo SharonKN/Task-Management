@@ -1,0 +1,26 @@
+﻿@model Task_Managemenet.Models.Priority
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Priority</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PriorityID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
