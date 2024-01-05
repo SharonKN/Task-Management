@@ -1,5 +1,5 @@
 ﻿<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
-
+<h3>Task Management</h3>
 
 <div id="toggleContainer">
     <div class="toggle-wrapper">
@@ -188,11 +188,13 @@
         $(document).on("click", "#filterButton", function () {
             var filterText = $("#filterText").val().toLowerCase();
 
-            // Filter table rows based on the input text
-            $("#taskTable tbody tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(filterText) > -1);
+            // Show/hide table rows based on the input text
+            $("#taskTable tbody tr").each(function () {
+                var rowText = $(this).text().toLowerCase();
+                $(this).toggle(rowText.indexOf(filterText) > -1);
             });
         });
+
 
         // Function to handle "Create New" button click event
         $(document).on("click", ".create-link, .create-lookup-link", function (e) {
